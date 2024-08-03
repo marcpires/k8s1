@@ -5,10 +5,11 @@ provider "helm" {
 }
 
 resource "helm_release" "prometheus_operator" {
-  name       = "prometheus-operator"
-  repository = "https://prometheus-community.github.io/helm-charts"
-  chart      = "kube-prometheus-stack"
-  version    = "47.0.0"
+  name         = "prometheus-operator"
+  repository   = "https://prometheus-community.github.io/helm-charts"
+  force_update = true
+  chart        = "kube-prometheus-stack"
+  version      = "47.0.0"
 
   set {
     name  = "prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues"
