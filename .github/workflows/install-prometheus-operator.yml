@@ -24,7 +24,6 @@ jobs:
       - name: Run Helm in Docker
         run: |
             docker run --rm \
-            --user $(id -u):$(id -g) \
             --network host \
             -v ${{ github.workspace }}/monitoring:/workspace \
             -v $HOME/.kube:/root/.kube \
@@ -32,7 +31,7 @@ jobs:
             -w /workspace \
             alpine:3.20 \
             sh -c "
-              sudo apk add --no-cache curl bash tar gzip;
+              su-exec apk add --no-cache curl bash tar gzip;
               curl https://get.helm.sh/helm-v3.8.0-linux-amd64.tar.gz | tar zxvf -;
               mv linux-amd64/helm /usr/local/bin/helm;
               curl -sO https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip;
