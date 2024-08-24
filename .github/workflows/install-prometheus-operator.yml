@@ -23,7 +23,7 @@ jobs:
 
       - name: Run Helm in Docker
         run: |
-          ip a
+          cat /etc/passwd
 #            docker run --rm \
 #            --network host \
 #            -v ${{ github.workspace }}/monitoring:/workspace \
