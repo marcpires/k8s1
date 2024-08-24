@@ -31,7 +31,7 @@ jobs:
 
       - name: Terraform Plan
         env:
-          KUBECONFIG=$HOME/.kube/config
+          KUBECONFIG: $HOME/.kube/config
         run: terraform -chdir=monitoring plan
 
       - name: Terraform Apply
