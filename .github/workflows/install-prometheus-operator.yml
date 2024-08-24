@@ -25,14 +25,17 @@ jobs:
         run: echo "${{ secrets.KUBECONFIG_DATA }}" > $HOME/.kube/config
 
       - name: Terraform Init
-        env: KUBECONFIG=$HOME/.kube/config
+        env:
+          KUBECONFIG: $HOME/.kube/config
         run: terraform -chdir=monitoring init
 
       - name: Terraform Plan
-        env: KUBECONFIG=$HOME/.kube/config
+        env:
+          KUBECONFIG=$HOME/.kube/config
         run: terraform -chdir=monitoring plan
 
       - name: Terraform Apply
-        env: KUBECONFIG=$HOME/.kube/config
+        env:
+          KUBECONFIG: $HOME/.kube/config
         if: github.ref == 'refs/heads/main'
         run: terraform -chdir=monitoring apply -auto-approve
