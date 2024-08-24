@@ -1,3 +1,14 @@
+terraform { 
+  cloud { 
+    
+    organization = "LHC" 
+
+    workspaces { 
+      name = "k8s1-cicd" 
+    } 
+  } 
+}
+
 provider "helm" {
   kubernetes {
     config_path = "~/.kube/config"
