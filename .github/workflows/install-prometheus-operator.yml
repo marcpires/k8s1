@@ -28,6 +28,7 @@ jobs:
             -v ${{ github.workspace }}/monitoring:/workspace \
             -v $HOME/.kube:/root/.kube \
             -v $HOME/.terraform.d:/root/.terraform.d \
+            -e TF_PLUGIN_CACHE_DIR=/root/.terraform.d \
             -w /workspace \
             alpine:3.20 \
             sh -c "
