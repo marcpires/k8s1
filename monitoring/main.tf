@@ -1,12 +1,11 @@
 terraform {
-  cloud { 
-    
+  backend "remote" {
     organization = "LHC" 
 
-    workspaces { 
+    workspaces {
       name = "k8s1-cicd" 
-    } 
-  } 
+    }
+  }
 }
 
 provider "helm" {
