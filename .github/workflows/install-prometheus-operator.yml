@@ -22,11 +22,11 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TFE_TOKEN }}
 
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -chdir=monitoring
 
       - name: Terraform Plan
-        run: terraform plan -out=plan.out
+        run: terraform plan -chdir=monitoring
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
-        run: terraform apply "plan.out"
+        run: terraform apply -chdir=monitoring
