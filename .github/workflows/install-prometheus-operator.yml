@@ -23,6 +23,7 @@ jobs:
 
       - name: Run Helm in Docker
         run: |
+            /usr/bin/git config --global --add safe.directory \
             docker run --rm \
             --network host \
             -v ${{ github.workspace }}/monitoring:/workspace \
