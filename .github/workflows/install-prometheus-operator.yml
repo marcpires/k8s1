@@ -19,24 +19,14 @@ jobs:
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.0.0
+          cli_config_credentials_token: ${{ secrets.TFE_TOKEN }}
 
-      - name: Run Helm in Docker
-        run: |
-            docker run --rm \
-            --network host \
-            -v ${{ github.workspace }}/monitoring:/workspace \
-            -v $HOME/.kube:/root/.kube \
-            alpine:3.20 \
-            sh -c "
-              apk add --no-cache curl bash tar gzip;
-              curl https://get.helm.sh/helm-v3.8.0-linux-amd64.tar.gz | tar zxvf -;
-              mv linux-amd64/helm /usr/local/bin/helm;
-              curl -sO https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip;
-              unzip terraform_1.0.0_linux_amd64.zip;
-              chmod +x terraform;
-              mv terraform /usr/local/bin/terraform;
-              cd /workspace;
-              terraform init;
-              terraform apply -auto-approve;
-            "
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan -out=plan.out
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'
+        run: terraform apply "plan.out"
