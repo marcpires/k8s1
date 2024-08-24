@@ -23,7 +23,7 @@ jobs:
 
       - name: Run Helm in Docker
         run: |
-          docker run --rm \
+          ip a;docker run --rm \
             --network host \
             -v ${{ github.workspace }}/monitoring:/workspace \
             -v $HOME/.kube:/root/.kube \
