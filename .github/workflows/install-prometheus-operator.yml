@@ -22,7 +22,7 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TFE_TOKEN }}
 
       - name: Create kubeconfig file
-        run: echo "${{ secrets.KUBECONFIG_DATA }}" > $HOME/.kube/config
+        run: mkdir .kube && echo "${{ secrets.KUBECONFIG_DATA }}" > $HOME/.kube/config
 
       - name: Terraform Init
         run: terraform -chdir=monitoring init
