@@ -1,4 +1,4 @@
-terraform { 
+terraform {
   cloud { 
     
     organization = "LHC" 
@@ -27,4 +27,3 @@ resource "helm_release" "prometheus_operator" {
     value = "false"
   }
 }
-
