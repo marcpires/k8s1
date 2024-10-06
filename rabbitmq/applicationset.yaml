@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: rabbitmq-applicationset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - cluster: "in-cluster"
+  template:
+    metadata:
+      name: rabbitmq
+    spec:
+      project: default
+      source:
+        repoURL: https://charts.bitnami.com/bitnami  # Community Helm repo URL
+        chart: rabbitmq                              # Helm chart name
+        targetRevision: 12.0.0                       # Chart version
+        helm:
+          releaseName: rabbitmq-release              # Helm release name
+          values: |                                  # Optional custom values.yaml content
+            persistence:
+              enabled: true
+              size: 8Gi
+            resources:
+              requests:
+                memory: "512Mi"
+                cpu: "500m"
+              limits:
+                memory: "1Gi"
+                cpu: "1"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: default                           # Target namespace
+      syncPolicy:
+        automated:
+          prune: true                                # Remove obsolete resources
+          selfHeal: true                             # Automatically fix drift
+
