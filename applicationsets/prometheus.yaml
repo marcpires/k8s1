@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: prometheus-applicationset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - cluster: 'https://kubernetes.default.svc'
+            namespace: monitoring
+  template:
+    metadata:
+      name: prometheus
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/prometheus-community/helm-charts.git'
+        targetRevision: 'main'
+        chart: 'prometheus'
+        helm:
+          releaseName: prometheus
+          values: |
+            alertmanager:
+              enabled: true
+            pushgateway:
+              enabled: false
+            server:
+              resources:
+                requests:
+                  memory: "500Mi"
+                  cpu: "0.2"
+      destination:
+        server: '{{cluster}}'
+        namespace: '{{namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
