@@ -7,8 +7,7 @@ spec:
   generators:
     - list:
         elements:
-          - cluster: 'https://kubernetes.default.svc'
-            namespace: monitoring
+          - cluster: "in-cluster"
   template:
     metadata:
       name: prometheus
@@ -16,24 +15,26 @@ spec:
       project: default
       source:
         repoURL: 'https://github.com/prometheus-community/helm-charts.git'
-        targetRevision: 'main'
-        chart: 'prometheus'
+        chart: prometheus
+        targetRevision: 25.29.0
         helm:
           releaseName: prometheus
-          values: |
-            alertmanager:
+          values: |                                  # Optional custom values.yaml content
+            persistence:
               enabled: true
-            pushgateway:
-              enabled: false
-            server:
-              resources:
-                requests:
-                  memory: "500Mi"
-                  cpu: "0.2"
+              size: 8Gi
+            resources:
+              requests:
+                memory: "512Mi"
+                cpu: "700m"
+              limits:
+                memory: "1Gi"
+                cpu: "1"
       destination:
-        server: '{{cluster}}'
-        namespace: '{{namespace}}'
+        server: https://kubernetes.default.svc
+        namespace: default                           # Target namespace
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          prune: true                                # Remove obsolete resources
+          selfHeal: true                             # Automatically fix drift
+
