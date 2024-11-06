@@ -18,6 +18,9 @@ spec:
         targetRevision: 65.8.0
         chart: kube-prometheus-stack
         helm:
+          parameters:
+            - name: createNamespace
+              value: "true"
           releaseName: prometheus
           values: |
             persistence:
