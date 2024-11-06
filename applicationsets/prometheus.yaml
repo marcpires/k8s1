@@ -15,7 +15,7 @@ spec:
       project: default
       source:
         repoURL: 'https://github.com/prometheus-community/helm-charts.git'
-        chart: prometheus
+        chart: prometheus-community/prometheus
         targetRevision: 25.29.0
         helm:
           releaseName: prometheus
