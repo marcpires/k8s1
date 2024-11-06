@@ -14,15 +14,15 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://charts.bitnami.com/bitnami  # Community Helm repo URL
-        chart: rabbitmq                              # Helm chart name
-        targetRevision: 12.0.0                       # Chart version
+        repoURL: https://charts.bitnami.com/bitnami
+        chart: rabbitmq
+        targetRevision: 12.0.0
         helm:
           parameters:
             - name: createNamespace
               value: "true"
-          releaseName: rabbitmq-release              # Helm release name
-          values: |                                  # Optional custom values.yaml content
+          releaseName: rabbitmq-release
+          values: |
             persistence:
               enabled: true
               size: 8Gi
@@ -35,9 +35,9 @@ spec:
                 cpu: "1"
       destination:
         server: https://kubernetes.default.svc
-        namespace: default                           # Target namespace
+        namespace: rabbitmq
       syncPolicy:
         automated:
-          prune: true                                # Remove obsolete resources
-          selfHeal: true                             # Automatically fix drift
+          prune: true
+          selfHeal: true
 
