@@ -14,9 +14,9 @@ spec:
     spec:
       project: default
       source:
-        repoURL: 'https://github.com/prometheus-community/helm-charts.git'
-        chart: prometheus-community/prometheus
-        targetRevision: 25.29.0
+        repoURL: https://prometheus-community.github.io/helm-charts
+        targetRevision: 65.8.0
+        chart: kube-prometheus-stack
         helm:
           releaseName: prometheus
           values: |                                  # Optional custom values.yaml content
