@@ -19,7 +19,7 @@ spec:
         chart: kube-prometheus-stack
         helm:
           releaseName: prometheus
-          values: |                                  # Optional custom values.yaml content
+          values: |
             persistence:
               enabled: true
               size: 8Gi
@@ -32,9 +32,9 @@ spec:
                 cpu: "1"
       destination:
         server: https://kubernetes.default.svc
-        namespace: default                           # Target namespace
+        namespace: prometheus
       syncPolicy:
         automated:
-          prune: true                                # Remove obsolete resources
-          selfHeal: true                             # Automatically fix drift
+          prune: true
+          selfHeal: true
 
