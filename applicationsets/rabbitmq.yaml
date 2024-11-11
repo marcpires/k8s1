@@ -12,7 +12,7 @@ spec:
     metadata:
       name: rabbitmq
     spec:
-      project: default
+      project: mq
       source:
         repoURL: https://charts.bitnami.com/bitnami
         chart: rabbitmq
@@ -32,7 +32,7 @@ spec:
                 cpu: "1"
       destination:
         server: https://kubernetes.default.svc
-        namespace: rabbitmq
+        namespace: mq
       syncPolicy:
         automated:
           prune: true

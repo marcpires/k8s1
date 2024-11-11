@@ -1,5 +1,9 @@
 # k8s1
 
+0. Requisitos
+- Sistema operacional *nix-like
+- Binários docker e kubectl
+
 1. Instale um cluster kubernetes usando um dos scripts abaixo:
 * em um servidor:
 ```
