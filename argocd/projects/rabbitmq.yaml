@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: mq
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: RabbitMQ Project
+  sourceRepos:
+    - '*'
+  destinations:
+  - namespace: rabbitmq
+    server: https://kubernetes.default.svc
+    name: in-cluster

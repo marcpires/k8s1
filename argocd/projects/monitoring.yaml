@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: monitoring
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Observability Project
+  sourceRepos:
+    - '*'
+  destinations:
+  - namespace: monitoring
+    server: https://kubernetes.default.svc
+    name: in-cluster
